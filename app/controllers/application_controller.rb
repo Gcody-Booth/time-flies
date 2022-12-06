@@ -51,14 +51,14 @@ class ApplicationController < ActionController::Base
 
   gdistance_api_endpoint = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" + @destination_lat + "%2C" + @destination_lon + "&origins=" + @origin_latitude.to_s + "%2C" + @origin_longitude.to_s + "&key=AIzaSyAgRzRHJZf-uoevSnYDTf08or8QFS_fb3U"
 
-  raw_dist_data = URI.open(gdistance_api_endpoint).to_s
+  raw_dist_data = URI.open(gdistance_api_endpoint).string
   parsed_dist_data = JSON.parse(raw_dist_data)
-  gdistance_results_rows = parsed_dist_data.fetch("rows")
-  gdistance_results_elements = gdistance_results_rows.fetch("elements")
-  gdistance_results_distance = gdistance_results_elements.fetch("distance")
+  gdistance_results_rows = parsed_dist_data.fetch("rows").at(0)
+  gdistance_results_elements = gdistance_results_rows.fetch("elements").at(0)
+  gdistance_results_distance = gdistance_results_elements.fetch("duration")
 
   drive_time_seconds = gdistance_results_distance.fetch("value")
-  @drive_time_mins = drive_time_seconds / 60 
+  @drive_time_mins = drive_time_seconds / 60
 
 
 
