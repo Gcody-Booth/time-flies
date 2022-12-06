@@ -1,21 +1,17 @@
 Hi Traveller, 
 
-<dl>
-You are going from
-<%=@cleaned_address%>
-</dl>
-<dl>
-lat = <%=@origin_latitude%>
-</dl>
-<dl>
-lon = <%=@origin_longitude%>
-</dl>
-
-<dl> to <%= @formatted_name%> </dl>
-<dl> lat = <%=@destination_lat%> </dl>
-<dl> lon = <%=@destination_lon%> </dl>
+<dl> You are going from <%=@cleaned_address%> to <%= @formatted_name%> </dl>
 
 
-Current security wait time is <%=@security_wait_time%> minutes
 
-Current driving time from your address to <%= @formatted_name%> is to <%= @drive_time_mins%> minutes
+<dl>Current security line wait time at <%= @formatted_name%> is <%=@security_wait_time%> minutes</dl>
+
+<dl>Current driving time from your address to <%= @formatted_name%> is <%= @drive_time_mins%> minutes</dl>
+
+
+<dl>The total time to get from your front door to your gate at the aiport is <u><strong> <%=@total_wait_time%> minutes </strong></u>(excluding parking and walking through terminal)</dl>
+
+
+<a href= "/">
+Back to homepage!
+</a>

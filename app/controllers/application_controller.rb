@@ -62,7 +62,8 @@ class ApplicationController < ActionController::Base
 
 
 
-
+  #total wait time
+  @total_wait_time = @drive_time_mins + @security_wait_time
 
 
     render({ :template => "main_page/wait_time.html.erb" })
