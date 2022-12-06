@@ -1,7 +1,16 @@
 Hi Traveller, 
 
+<dl>
 You are going from
 <%=@cleaned_address%>
+</dl>
+<dl>
+lat = <%=@origin_latitude%>
+</dl>
+<dl>
+lon = <%=@origin_longitude%>
+</dl>
 
-to
-<%= @airport_code%>
+<dl> to <%= @airport_code%> </dl>
+<dl> lat = <%=@destination_lat%> </dl>
+<dl> lon = <%=@destination_lon%> </dl>
