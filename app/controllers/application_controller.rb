@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
     @destination_lat = parsed_wait_data.fetch("latitude")
     @destination_lon = parsed_wait_data.fetch("longitude")
     @formatted_name = parsed_wait_data.fetch("name")
+    p @destination_lat.class
 
     #find security line wait time
     @security_wait_time = parsed_wait_data.fetch("rightnow")
@@ -48,10 +49,18 @@ class ApplicationController < ActionController::Base
   # &origins=40.6655101%2C-73.89188969999998
   # &key=AIzaSyAgRzRHJZf-uoevSnYDTf08or8QFS_fb3U
 
-  # https://maps.googleapis.com/maps/api/distancematrix/json
-  # ?destinations= @destination_lat + "%2C" + @destination_lon
-  # &origins=@origin_latitude+ "%2C" + @origin_longitude
-  # &key=AIzaSyAgRzRHJZf-uoevSnYDTf08or8QFS_fb3U
+  gdistance_api_endpoint = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" + @destination_lat + "%2C" + @destination_lon + "&origins=" + @origin_latitude.to_s + "%2C" + @origin_longitude.to_s + "&key=AIzaSyAgRzRHJZf-uoevSnYDTf08or8QFS_fb3U"
+
+  raw_dist_data = URI.open(gdistance_api_endpoint).to_s
+  parsed_dist_data = JSON.parse(raw_dist_data)
+  gdistance_results_rows = parsed_dist_data.fetch("rows")
+  gdistance_results_elements = gdistance_results_rows.fetch("elements")
+  gdistance_results_distance = gdistance_results_elements.fetch("distance")
+
+  drive_time_seconds = gdistance_results_distance.fetch("value")
+  @drive_time_mins = drive_time_seconds / 60 
+
+
 
 
 
